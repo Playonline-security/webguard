@@ -115,13 +115,6 @@
     border-top: 1px solid var(--line);
   }
 
-  .sensitivity__head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 18px;
-  }
-
   .sensitivity__head h3 {
     font-size: 12.5px;
     font-weight: 580;
@@ -129,22 +122,39 @@
 
   .sensitivity__head p {
     margin-top: 3px;
-    max-width: 48ch;
+    max-width: 58ch;
     color: var(--muted);
     font-size: 11px;
     line-height: 1.5;
   }
 
+  .sensitivity__control {
+    display: flex;
+    width: 100%;
+    margin-top: 14px;
+  }
+
+  .sensitivity__control .segmented__option {
+    flex: 1;
+  }
+
   .sensitivity__scale {
     display: flex;
-    gap: 3px;
-    margin-top: 15px;
+    gap: 2px;
+    margin-top: 10px;
+    padding: 0 3px;
   }
 
   .sensitivity__scale span {
     flex: 1;
     height: 5px;
     border-radius: 99px;
+    opacity: 0.3;
+    transition: opacity 140ms ease;
+  }
+
+  .sensitivity__scale span.is-active {
+    opacity: 1;
   }
 
   .sensitivity__scale .is-low { background: var(--tint-strong); }
@@ -152,11 +162,19 @@
   .sensitivity__scale .is-high { background: var(--accent-strong); }
 
   .sensitivity__labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 5px;
+    padding: 0 3px;
     color: var(--muted-weak);
-    font-size: 9px;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .sensitivity__labels span.is-active {
+    color: var(--ink-soft);
+    font-weight: 560;
   }
 
   .settings-rows {

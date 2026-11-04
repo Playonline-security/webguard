@@ -42,7 +42,7 @@
   .sidebar__top {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
     padding: 0 6px;
   }
 
@@ -57,6 +57,7 @@
     align-items: center;
     gap: 9px;
     color: var(--brand);
+    --mark-ink: var(--paper);
   }
 
   .brand-lockup--light {
@@ -70,7 +71,6 @@
     height: 31px;
     color: inherit;
     flex: 0 0 auto;
-    --mark-ink: var(--paper);
   }
 
   .brand-mark--sm {
@@ -152,7 +152,7 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
-    margin-top: 26px;
+    margin-top: 18px;
     padding: 0 2px;
     flex: 1;
   }
@@ -311,16 +311,6 @@
 
   .sidebar .switch__thumb {
     background: var(--paper);
-  }
-
-  .sidebar__settings-link {
-    justify-content: flex-start !important;
-    color: rgba(244, 247, 255, 0.66) !important;
-  }
-
-  .sidebar__settings-link:hover {
-    background: rgba(143, 182, 255, 0.08) !important;
-    color: var(--paper) !important;
   }
 
   .sidebar__meta {

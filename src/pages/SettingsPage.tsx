@@ -123,28 +123,37 @@ export function SettingsPage() {
               <div className="sensitivity__head">
                 <div>
                   <h3>Nivel de sensibilidad</h3>
-                  <p>{sensitivityCopy[settings.sensitivity]}</p>
+                  <p aria-live="polite">{sensitivityCopy[settings.sensitivity]}</p>
                 </div>
-                <SegmentedControl
-                  label="Nivel de sensibilidad"
-                  value={settings.sensitivity}
-                  onChange={(value) => updateSettings({ sensitivity: value })}
-                  options={[
-                    { value: 'low', label: 'Baja' },
-                    { value: 'balanced', label: 'Equilibrada' },
-                    { value: 'high', label: 'Alta' },
-                  ]}
-                />
               </div>
+              <SegmentedControl
+                className="sensitivity__control"
+                label="Nivel de sensibilidad"
+                value={settings.sensitivity}
+                onChange={(value) => updateSettings({ sensitivity: value })}
+                options={[
+                  { value: 'low', label: 'Baja' },
+                  { value: 'balanced', label: 'Equilibrada' },
+                  { value: 'high', label: 'Alta' },
+                ]}
+              />
               <div className="sensitivity__scale" aria-hidden="true">
-                <span className="is-low" />
-                <span className="is-balanced" />
-                <span className="is-high" />
+                <span className={cx('is-low', settings.sensitivity === 'low' && 'is-active')} />
+                <span
+                  className={cx('is-balanced', settings.sensitivity === 'balanced' && 'is-active')}
+                />
+                <span className={cx('is-high', settings.sensitivity === 'high' && 'is-active')} />
               </div>
               <div className="sensitivity__labels" aria-hidden="true">
-                <span>Menos avisos</span>
-                <span>Recomendada</span>
-                <span>Más avisos</span>
+                <span className={cx(settings.sensitivity === 'low' && 'is-active')}>
+                  Baja · menos avisos
+                </span>
+                <span className={cx(settings.sensitivity === 'balanced' && 'is-active')}>
+                  Equilibrada · recomendada
+                </span>
+                <span className={cx(settings.sensitivity === 'high' && 'is-active')}>
+                  Alta · más protección
+                </span>
               </div>
             </div>
           </section>

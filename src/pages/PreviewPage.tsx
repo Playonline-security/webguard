@@ -174,8 +174,8 @@ export function PreviewPage() {
         <div className="scenario-panel__note">
           <strong>Cómo se usa</strong>
           <p>
-            El popup aparece al analizar un sitio. El pie abre Historial y Panel; el engranaje abre
-            Configuración.
+            El popup aparece al analizar un sitio. El pie abre Historial y Centro de control; el
+            engranaje abre Configuración.
           </p>
         </div>
       </aside>
@@ -192,8 +192,8 @@ export function PreviewPage() {
           <ExtensionPopup scenarioId={popupState} onChangeScenario={selectScenario} />
         </div>
         <p className="preview-canvas__note">
-          Los controles internos del popup están activos. «Historial» y «Panel» abren las secciones
-          reales del prototipo; el engranaje abre Configuración.
+          Los controles internos del popup están activos. «Historial» y «Centro de control» abren
+          las secciones reales del prototipo; el engranaje abre Configuración.
         </p>
       </section>
     </div>
@@ -443,8 +443,8 @@ export function PreviewPage() {
             <div>
               <strong>Los popups son la extensión de WebGuard</strong>
               <p>
-                Aparecen al analizar un sitio y abren el panel completo con Historial, Reglas de
-                detección y Configuración. Este centro es una revisión con datos simulados.
+                Aparecen al analizar un sitio y abren el centro de control completo con Historial,
+                Reglas de detección y Configuración. Este centro es una revisión con datos simulados.
               </p>
             </div>
             <span className="prototype-banner__stamp">Prototipo · datos simulados</span>

@@ -38,7 +38,7 @@ npm run lint      # análisis estático con oxlint
 - `/rules` — Las nueve reglas de detección con sus pesos, búsqueda, filtros, activación individual y guía de umbrales.
 - `/settings` — Protección, sensibilidad, alertas, preferencias generales, listas de dominios y restablecimiento de datos.
 
-El pie del popup abre **Historial** y **Panel**; el engranaje superior abre **Configuración**. **Reglas de detección** forma parte del panel completo. El centro de escenarios no forma parte de la interfaz final.
+El pie del popup abre **Historial** y **Centro de control**; el engranaje superior abre **Configuración**. **Reglas de detección** forma parte del centro de control. El centro de escenarios no forma parte de la interfaz final.
 
 ### Pantallas de seguridad
 

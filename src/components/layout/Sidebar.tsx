@@ -11,7 +11,6 @@ import {
 import { Link, NavLink } from 'react-router-dom'
 import { useAppState } from '../../context/useAppState'
 import { useToast } from '../../context/useToast'
-import { ButtonLink } from '../ui/Button'
 import { Logo } from '../brand/Logo'
 import { Switch } from '../ui/Switch'
 import { mockEvents } from '../../data/events'
@@ -57,6 +56,27 @@ export function Sidebar() {
             <span className="workspace__plan">Cuenta de usuario</span>
           </span>
         </div>
+        <div className="sidebar-status">
+          <div className="sidebar-status__head">
+            <span className={cx('status-dot', settings.protectionEnabled ? 'is-on' : 'is-off')} />
+            <span>{settings.protectionEnabled ? 'Protección activa' : 'Protección pausada'}</span>
+          </div>
+          <p className="sidebar-status__copy">
+            {settings.protectionEnabled
+              ? 'Analizando la navegación en este navegador.'
+              : 'No se analizarán nuevas páginas.'}
+          </p>
+          <div className="sidebar-status__actions">
+            <span className="sidebar-status__icon" aria-hidden="true">
+              {settings.protectionEnabled ? <ShieldCheck size={18} /> : <ShieldOff size={18} />}
+            </span>
+            <Switch
+              checked={settings.protectionEnabled}
+              onChange={handleProtection}
+              label="Activar o pausar la protección"
+            />
+          </div>
+        </div>
       </div>
 
       <nav className="sidebar__nav">
@@ -93,36 +113,6 @@ export function Sidebar() {
       </nav>
 
       <div className="sidebar__foot">
-        <div className="sidebar-status">
-          <div className="sidebar-status__head">
-            <span className={cx('status-dot', settings.protectionEnabled ? 'is-on' : 'is-off')} />
-            <span>{settings.protectionEnabled ? 'Protección activa' : 'Protección pausada'}</span>
-          </div>
-          <p className="sidebar-status__copy">
-            {settings.protectionEnabled
-              ? 'Analizando la navegación en este navegador.'
-              : 'No se analizarán nuevas páginas.'}
-          </p>
-          <div className="sidebar-status__actions">
-            <span className="sidebar-status__icon" aria-hidden="true">
-              {settings.protectionEnabled ? <ShieldCheck size={18} /> : <ShieldOff size={18} />}
-            </span>
-            <Switch
-              checked={settings.protectionEnabled}
-              onChange={handleProtection}
-              label="Activar o pausar la protección"
-            />
-          </div>
-        </div>
-        <ButtonLink
-          to="/settings"
-          variant="quiet"
-          size="sm"
-          className="sidebar__settings-link"
-        >
-          <Settings2 size={14} aria-hidden="true" />
-          Ajustes de protección
-        </ButtonLink>
         <p className="sidebar__meta">Datos simulados · Prototipo v0.1</p>
       </div>
     </aside>

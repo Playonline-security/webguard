@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock3,
-  ExternalLink,
   FileWarning,
   LayoutDashboard,
   LoaderCircle,
@@ -215,10 +214,6 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
                 <ShieldCheck size={16} aria-hidden="true" />
                 Activar protección
               </Button>
-              <Button variant="ghost" fullWidth onClick={() => navigate('/settings')}>
-                Abrir configuración
-                <ExternalLink size={14} aria-hidden="true" />
-              </Button>
             </div>
           </div>
         ) : isScanningState ? (
@@ -395,7 +390,7 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
         </Link>
         <Link to="/dashboard" className="popup__footer-link">
           <LayoutDashboard size={16} aria-hidden="true" />
-          Panel
+          Centro de control
         </Link>
       </footer>
     </section>
