@@ -6,6 +6,7 @@ import {
   FlaskConical,
   LoaderCircle,
   PanelsTopLeft,
+  Puzzle,
   ShieldCheck,
   ShieldOff,
   ShieldX,
@@ -34,7 +35,7 @@ const guidedSteps = [
     id: 'popup',
     label: 'Popup de la extensión',
     description: 'Revisa los seis estados del panel de WebGuard.',
-    meta: 'Paso actual',
+    meta: 'Vista actual',
     icon: PanelsTopLeft,
   },
   {
@@ -141,7 +142,12 @@ export function PreviewPage() {
           {scenarioOrder.map((id) => {
             const scenario = popupScenarios[id]
             const Icon = scenarioIcons[id]
-            const risk = id === 'disabled' || id === 'scanning' ? 'neutral' : scenario.risk
+            const risk =
+              id === 'idle'
+                ? 'idle'
+                : id === 'disabled' || id === 'scanning'
+                  ? 'neutral'
+                  : scenario.risk
             return (
               <button
                 key={id}
@@ -166,10 +172,10 @@ export function PreviewPage() {
         </div>
 
         <div className="scenario-panel__note">
-          <strong>Popup realista</strong>
+          <strong>Cómo se usa</strong>
           <p>
-            El tamaño representa un popup de extensión de Chrome. Los accesos del pie abren el
-            panel y la configuración del prototipo.
+            El popup aparece al analizar un sitio. El pie abre Historial y Panel; el engranaje abre
+            Configuración.
           </p>
         </div>
       </aside>
@@ -180,14 +186,14 @@ export function PreviewPage() {
             <span className="preview-canvas__eyebrow">Extensión Chrome</span>
             <h2>{popupScenarios[popupState].label}</h2>
           </div>
-          <span className="size-badge">384 × 600 px</span>
+          <span className="size-badge">384 × 600 px · 105%</span>
         </div>
         <div className="popup-stage">
           <ExtensionPopup scenarioId={popupState} onChangeScenario={selectScenario} />
         </div>
         <p className="preview-canvas__note">
-          Los controles internos del popup están activos. «Configuración» y «Panel» abren las
-          secciones reales del prototipo.
+          Los controles internos del popup están activos. «Historial» y «Panel» abren las secciones
+          reales del prototipo; el engranaje abre Configuración.
         </p>
       </section>
     </div>
@@ -361,13 +367,15 @@ export function PreviewPage() {
 
   const guidedLayout = (
     <>
+      {popupLayout}
+
       <section className="guided-flow" aria-labelledby="guided-flow-title">
         <div className="guided-flow__head">
           <span className="preview-canvas__eyebrow">Recorrido recomendado</span>
           <h2 id="guided-flow-title">Del aviso al bloqueo</h2>
           <p>
-            El popup se revisa aquí. Advertencia y bloqueo se abren en pestaña nueva para conservar
-            este centro de escenarios.
+            El popup se revisa arriba; advertencia y bloqueo se abren en pestaña nueva para
+            conservar este centro de escenarios.
           </p>
         </div>
         <ol className="scenario-flow">
@@ -404,8 +412,6 @@ export function PreviewPage() {
           })}
         </ol>
       </section>
-
-      {popupLayout}
     </>
   )
 
@@ -432,16 +438,16 @@ export function PreviewPage() {
 
           <div className="prototype-banner">
             <span className="prototype-banner__icon">
-              <FlaskConical size={19} aria-hidden="true" />
+              <Puzzle size={19} aria-hidden="true" />
             </span>
             <div>
-              <strong>Este centro no forma parte de la interfaz final</strong>
+              <strong>Los popups son la extensión de WebGuard</strong>
               <p>
-                Es una herramienta de revisión para evaluar la experiencia. Los dominios,
-                indicadores y decisiones son datos simulados.
+                Aparecen al analizar un sitio y abren el panel completo con Historial, Reglas de
+                detección y Configuración. Este centro es una revisión con datos simulados.
               </p>
             </div>
-            <span className="prototype-banner__stamp">UI/UX review · v0.1</span>
+            <span className="prototype-banner__stamp">Prototipo · datos simulados</span>
           </div>
 
           {showComponents ? componentsGallery : guidedLayout}

@@ -397,10 +397,6 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
           <LayoutDashboard size={16} aria-hidden="true" />
           Panel
         </Link>
-        <Link to="/settings" className="popup__footer-link">
-          <Settings2 size={16} aria-hidden="true" />
-          Configuración
-        </Link>
       </footer>
     </section>
   )
