@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowLeft,
   CheckCircle2,
@@ -29,6 +29,7 @@ import { RiskBadge } from '../ui/Badge'
 import { Button } from '../ui/Button'
 import { IndicatorList } from '../ui/IndicatorList'
 import { ScoreMeter } from '../ui/ScoreMeter'
+import { Switch } from '../ui/Switch'
 
 interface ExtensionPopupProps {
   scenarioId: PopupScenarioId
@@ -42,30 +43,42 @@ const scanSteps = [
   'Revisando formularios y contenido',
 ]
 
+const scanOutcomes = ['safe', 'medium', 'high'] as const
+
+function pickScanOutcome(): PopupScenarioId {
+  return scanOutcomes[Math.floor(Math.random() * scanOutcomes.length)] ?? 'safe'
+}
+
 export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupProps) {
   const { settings, setProtectionEnabled } = useAppState()
   const { pushToast } = useToast()
   const navigate = useNavigate()
   const [expanded, setExpanded] = useState(false)
-  const [isScanning, setIsScanning] = useState(false)
   const [lastScan, setLastScan] = useState(() => new Date(Date.now() - 2 * 60_000))
-  const timerRef = useRef<number | null>(null)
 
   useEffect(() => {
-    return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current)
-    }
-  }, [])
+    if (scenarioId !== 'scanning' || !settings.protectionEnabled) return
+
+    const timer = window.setTimeout(() => {
+      const outcome = pickScanOutcome()
+      setLastScan(new Date())
+      onChangeScenario(outcome)
+      pushToast({
+        title: 'Análisis completado',
+        description: `El resultado simulado es ${popupScenarios[outcome].label.toLowerCase()}.`,
+        tone: 'success',
+      })
+    }, 2600)
+
+    return () => window.clearTimeout(timer)
+  }, [scenarioId, settings.protectionEnabled, onChangeScenario, pushToast])
 
   const effectiveState: PopupScenarioId =
-    !settings.protectionEnabled || scenarioId === 'disabled'
-      ? 'disabled'
-      : isScanning || scenarioId === 'scanning'
-        ? 'scanning'
-        : scenarioId
+    !settings.protectionEnabled || scenarioId === 'disabled' ? 'disabled' : scenarioId
 
   const scenario = popupScenarios[scenarioId]
   const risk = scenario.risk
+  const isIdle = effectiveState === 'idle'
   const isDisabled = effectiveState === 'disabled'
   const isScanningState = effectiveState === 'scanning'
   const isHigh = effectiveState === 'high'
@@ -73,34 +86,23 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
   const isSafe = effectiveState === 'safe'
   const indicatorCount = scenario.indicatorIds.length
 
-  const startScan = () => {
-    setIsScanning(true)
-    if (timerRef.current) window.clearTimeout(timerRef.current)
-    timerRef.current = window.setTimeout(() => {
-      setIsScanning(false)
-      setLastScan(new Date())
+  const handleProtectionToggle = (enabled: boolean) => {
+    setProtectionEnabled(enabled)
+    if (enabled) {
+      onChangeScenario('scanning')
       pushToast({
-        title: 'Análisis completado',
-        description:
-          'El resultado simulado se mantiene y el estado del sitio se actualizó en el popup.',
+        title: 'Protección activada',
+        description: 'WebGuard volverá a analizar la navegación de esta pestaña.',
         tone: 'success',
       })
-    }, 2600)
-  }
+      return
+    }
 
-  const cancelScan = () => {
-    if (timerRef.current) window.clearTimeout(timerRef.current)
-    setIsScanning(false)
-    if (scenarioId === 'scanning') onChangeScenario('safe')
-  }
-
-  const activateProtection = () => {
-    setProtectionEnabled(true)
-    onChangeScenario('safe')
+    onChangeScenario('disabled')
     pushToast({
-      title: 'Protección activada',
-      description: 'WebGuard volverá a analizar la navegación de esta pestaña.',
-      tone: 'success',
+      title: 'Protección desactivada',
+      description: 'WebGuard dejará de analizar la navegación de esta pestaña.',
+      tone: 'warning',
     })
   }
 
@@ -135,6 +137,11 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
             <i className="status-dot" />
             {settings.protectionEnabled ? 'Activa' : 'En pausa'}
           </span>
+          <Switch
+            checked={settings.protectionEnabled}
+            onChange={handleProtectionToggle}
+            label="Activar o desactivar la protección"
+          />
           <button
             type="button"
             className="popup__icon-button"
@@ -147,27 +154,53 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
         </div>
       </header>
 
-      <div className="popup__url">
-        <span className={cx('popup__url-icon', isHigh || isDisabled ? 'is-warn' : 'is-ok')}>
-          {scenario.url.startsWith('https://') ? (
-            <LockKeyhole size={13} aria-hidden="true" />
-          ) : (
-            <Unlock size={13} aria-hidden="true" />
-          )}
-        </span>
-        <span className="popup__url-copy">
-          <span className="popup__url-domain">{scenario.domain}</span>
-          <span className="popup__url-path">
-            {scenario.url.replace(/^https?:\/\/[^/]+/, '') || '/'}
+      {!isIdle ? (
+        <div className="popup__url">
+          <span className={cx('popup__url-icon', isHigh || isDisabled ? 'is-warn' : 'is-ok')}>
+            {scenario.url.startsWith('https://') ? (
+              <LockKeyhole size={13} aria-hidden="true" />
+            ) : (
+              <Unlock size={13} aria-hidden="true" />
+            )}
           </span>
-        </span>
-        <span className={cx('protocol-tag', scenario.url.startsWith('https://') ? 'is-secure' : 'is-insecure')}>
-          {scenario.url.startsWith('https://') ? 'HTTPS' : 'Sin HTTPS'}
-        </span>
-      </div>
+          <span className="popup__url-copy">
+            <span className="popup__url-domain">{scenario.domain}</span>
+            <span className="popup__url-path">
+              {scenario.url.replace(/^https?:\/\/[^/]+/, '') || '/'}
+            </span>
+          </span>
+          <span className={cx('protocol-tag', scenario.url.startsWith('https://') ? 'is-secure' : 'is-insecure')}>
+            {scenario.url.startsWith('https://') ? 'HTTPS' : 'Sin HTTPS'}
+          </span>
+        </div>
+      ) : null}
 
       <div className="popup__body">
-        {isDisabled ? (
+        {isIdle ? (
+          <div className="popup-status popup-status--idle">
+            <span className="popup-status__icon">
+              <ShieldCheck size={28} aria-hidden="true" />
+            </span>
+            <div className="popup-status__headline">
+              <div>
+                <p className="popup-status__kicker">Protección activa</p>
+                <h2 className="popup-status__title">Listo para proteger tu navegación</h2>
+              </div>
+            </div>
+            <p className="popup-status__copy">{scenario.summary}</p>
+            <div className="popup-checks">
+              <span>
+                <CheckCircle2 size={15} aria-hidden="true" /> Analiza cada sitio antes de cargarlo
+              </span>
+              <span>
+                <CheckCircle2 size={15} aria-hidden="true" /> Advierte cuando detecta riesgo medio
+              </span>
+              <span>
+                <CheckCircle2 size={15} aria-hidden="true" /> Bloquea amenazas de riesgo alto
+              </span>
+            </div>
+          </div>
+        ) : isDisabled ? (
           <div className="popup-status popup-status--disabled">
             <span className="popup-status__icon">
               <ShieldOff size={28} aria-hidden="true" />
@@ -178,7 +211,7 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
             </div>
             <p className="popup-status__copy">{scenario.summary}</p>
             <div className="popup-status__actions">
-              <Button fullWidth onClick={activateProtection}>
+              <Button fullWidth onClick={() => handleProtectionToggle(true)}>
                 <ShieldCheck size={16} aria-hidden="true" />
                 Activar protección
               </Button>
@@ -211,10 +244,6 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
                 </li>
               ))}
             </ul>
-            <Button variant="ghost" fullWidth onClick={cancelScan}>
-              <ArrowLeft size={15} aria-hidden="true" />
-              Cancelar análisis
-            </Button>
           </div>
         ) : (
           <>
@@ -329,7 +358,11 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
                   </span>
                 </div>
                 <p>{scenario.summary}</p>
-                <button type="button" className="popup-summary__refresh" onClick={startScan}>
+                <button
+                  type="button"
+                  className="popup-summary__refresh"
+                  onClick={() => onChangeScenario('scanning')}
+                >
                   <RefreshCw size={13} aria-hidden="true" />
                   Analizar de nuevo
                 </button>

@@ -46,6 +46,19 @@ export const blockScenario: SiteScenario = {
 }
 
 export const popupScenarios: Record<PopupScenarioId, PopupScenario> = {
+  idle: {
+    id: 'idle',
+    label: 'Sin actividad',
+    shortLabel: 'Inicio',
+    description: 'La extensión está lista y aún no ha analizado la navegación de esta pestaña.',
+    domain: 'Sin pestaña analizada',
+    url: '',
+    score: 0,
+    risk: 'safe',
+    summary:
+      'Aún no hay actividad en esta pestaña. WebGuard analizará cada sitio cuando comiences a navegar.',
+    indicatorIds: [],
+  },
   safe: {
     id: 'safe',
     label: 'Sitio seguro',

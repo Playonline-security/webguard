@@ -26,13 +26,6 @@
     max-width: 72ch;
   }
 
-  .preview-header__actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 0 0 auto;
-  }
-
   .guided-flow {
     display: flex;
     flex-direction: column;
@@ -162,27 +155,6 @@
   .scenario-flow__item.is-active .scenario-flow__meta {
     color: var(--accent-strong);
     font-weight: 600;
-  }
-
-  .preview-canvas__flow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 11px 18px 13px;
-    border-top: 1px solid var(--line);
-    background: var(--paper);
-  }
-
-  .preview-canvas__flow > span {
-    color: var(--muted-weak);
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-  }
-
-  .preview-secondary-link {
-    display: flex;
-    justify-content: flex-end;
   }
 
   .prototype-tag {

@@ -51,11 +51,11 @@ Ambas se abren en una pestaña nueva desde el centro de escenarios para revisar 
 
 El centro permite revisar sin instalar nada:
 
-- Los cinco estados del popup: seguro, riesgo medio, riesgo alto, protección desactivada y análisis en curso.
+- Los seis estados del popup: sin actividad, seguro, riesgo medio, riesgo alto, protección desactivada y análisis en curso.
 - La advertencia y el bloqueo a tamaño completo, con acceso a su resumen, dominio, puntuación e indicadores.
 - Una galería de componentes: estados de riesgo, medidores, indicadores, botones, etiquetas y controles interactivos.
 
-El centro mantiene un único recorrido guiado por el popup, la advertencia y el bloqueo. La biblioteca de componentes sigue disponible como vista secundaria desde el enlace “Explorar biblioteca de componentes” o mediante `?tab=components`.
+El popup abre en “Sin actividad” cuando todavía no se ha analizado ninguna página y permite activar o pausar la protección desde su cabecera. El centro mantiene un único recorrido guiado por el popup, la advertencia y el bloqueo. La biblioteca de componentes queda como endpoint interno mediante `?tab=components`; no hay un enlace visible en el centro.
 
 Los parámetros `tab` y `state` se sincronizan con la URL, por lo que se puede enlazar una vista concreta, por ejemplo:
 

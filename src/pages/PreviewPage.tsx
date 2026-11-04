@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   ArrowRight,
-  Component,
-  Copy,
+  CircleDot,
   ExternalLink,
   FlaskConical,
   LoaderCircle,
@@ -18,10 +17,9 @@ import { popupScenarios, warningScenario } from '../data/scenarios'
 import { useAppState } from '../context/useAppState'
 import { useToast } from '../context/useToast'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
-import { copyText } from '../lib/clipboard'
 import { ExtensionPopup } from '../components/popup/ExtensionPopup'
 import { ScenarioTopbar } from '../components/layout/ScenarioTopbar'
-import { Button, ButtonLink } from '../components/ui/Button'
+import { Button } from '../components/ui/Button'
 import { RiskBadge, ResultBadge } from '../components/ui/Badge'
 import { ScoreMeter } from '../components/ui/ScoreMeter'
 import { IndicatorList } from '../components/ui/IndicatorList'
@@ -35,7 +33,7 @@ const guidedSteps = [
   {
     id: 'popup',
     label: 'Popup de la extensión',
-    description: 'Revisa los cinco estados del panel de WebGuard.',
+    description: 'Revisa los seis estados del panel de WebGuard.',
     meta: 'Paso actual',
     icon: PanelsTopLeft,
   },
@@ -58,6 +56,7 @@ const guidedSteps = [
 ] as const
 
 const scenarioIcons = {
+  idle: CircleDot,
   safe: ShieldCheck,
   medium: TriangleAlert,
   high: ShieldX,
@@ -65,10 +64,18 @@ const scenarioIcons = {
   scanning: LoaderCircle,
 } as const
 
-const scenarioOrder: PopupScenarioId[] = ['safe', 'medium', 'high', 'disabled', 'scanning']
+const scenarioOrder: PopupScenarioId[] = [
+  'idle',
+  'safe',
+  'medium',
+  'high',
+  'disabled',
+  'scanning',
+]
 
 function isPopupState(value: string | null): value is PopupScenarioId {
   return (
+    value === 'idle' ||
     value === 'safe' ||
     value === 'medium' ||
     value === 'high' ||
@@ -79,7 +86,7 @@ function isPopupState(value: string | null): value is PopupScenarioId {
 
 export function PreviewPage() {
   const [params, setParams] = useSearchParams()
-  const { setProtectionEnabled } = useAppState()
+  const { settings, setProtectionEnabled } = useAppState()
   const { pushToast } = useToast()
   const [componentToggle, setComponentToggle] = useState(true)
   const [componentSensitivity, setComponentSensitivity] = useState<'low' | 'balanced' | 'high'>(
@@ -87,34 +94,41 @@ export function PreviewPage() {
   )
   const rawState = params.get('state')
   const showComponents = params.get('tab') === 'components'
-  const popupState: PopupScenarioId = isPopupState(rawState) ? rawState : 'safe'
+  const requestedState = isPopupState(rawState)
+    ? rawState
+    : settings.protectionEnabled
+      ? 'idle'
+      : 'disabled'
+  const popupState: PopupScenarioId =
+    !settings.protectionEnabled && requestedState !== 'disabled' ? 'disabled' : requestedState
 
   useDocumentTitle(
     showComponents ? 'WebGuard · Biblioteca de componentes' : 'WebGuard · Centro de escenarios',
   )
 
-  const update = (nextView: PreviewView, nextState: PopupScenarioId = popupState) => {
-    const next = new URLSearchParams()
-    next.set('tab', nextView)
-    next.set('state', nextState)
-    setParams(next, { replace: true })
-  }
+  useEffect(() => {
+    if (rawState === 'disabled' && settings.protectionEnabled) {
+      setProtectionEnabled(false)
+    }
+  }, [rawState, settings.protectionEnabled, setProtectionEnabled])
 
-  const selectScenario = (id: PopupScenarioId) => {
-    setProtectionEnabled(id !== 'disabled')
-    update('popup', id)
-  }
+  const update = useCallback(
+    (nextView: PreviewView, nextState: PopupScenarioId) => {
+      const next = new URLSearchParams()
+      next.set('tab', nextView)
+      next.set('state', nextState)
+      setParams(next, { replace: true })
+    },
+    [setParams],
+  )
 
-  const copyScenarioLink = async () => {
-    const copied = await copyText(window.location.href)
-    pushToast({
-      title: copied ? 'Enlace copiado' : 'No se pudo copiar',
-      description: copied
-        ? 'La dirección de este escenario está en el portapapeles.'
-        : 'Selecciona la dirección del navegador para copiarla manualmente.',
-      tone: copied ? 'success' : 'warning',
-    })
-  }
+  const selectScenario = useCallback(
+    (id: PopupScenarioId) => {
+      setProtectionEnabled(id !== 'disabled')
+      update('popup', id)
+    },
+    [setProtectionEnabled, update],
+  )
 
   const popupLayout = (
     <div className="preview-layout">
@@ -175,19 +189,6 @@ export function PreviewPage() {
           Los controles internos del popup están activos. «Configuración» y «Panel» abren las
           secciones reales del prototipo.
         </p>
-        <div className="preview-canvas__flow">
-          <span>Paso 1 de 3</span>
-          <ButtonLink
-            to="/demo/warning"
-            target="_blank"
-            rel="noreferrer"
-            variant="secondary"
-            size="sm"
-          >
-            Siguiente: Advertencia
-            <ArrowRight size={15} aria-hidden="true" />
-          </ButtonLink>
-        </div>
       </section>
     </div>
   )
@@ -199,7 +200,7 @@ export function PreviewPage() {
           <h2>Biblioteca de componentes</h2>
           <p>Estados, controles y patrones visuales usados en el prototipo.</p>
         </div>
-        <Button variant="secondary" size="sm" onClick={() => update('popup')}>
+        <Button variant="secondary" size="sm" onClick={() => update('popup', popupState)}>
           <ArrowRight size={15} aria-hidden="true" />
           Volver al flujo
         </Button>
@@ -405,14 +406,6 @@ export function PreviewPage() {
       </section>
 
       {popupLayout}
-
-      <div className="preview-secondary-link">
-        <Button variant="quiet" size="sm" onClick={() => update('components')}>
-          <Component size={15} aria-hidden="true" />
-          Explorar biblioteca de componentes
-          <ArrowRight size={15} aria-hidden="true" />
-        </Button>
-      </div>
     </>
   )
 
@@ -434,12 +427,6 @@ export function PreviewPage() {
                 Revisa cómo se ven el popup, la advertencia y el bloqueo de WebGuard en el orden en
                 que aparecen durante la navegación.
               </p>
-            </div>
-            <div className="preview-header__actions">
-              <Button variant="secondary" size="sm" onClick={copyScenarioLink}>
-                <Copy size={15} aria-hidden="true" />
-                Copiar enlace
-              </Button>
             </div>
           </header>
 

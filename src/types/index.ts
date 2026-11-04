@@ -49,7 +49,7 @@ export interface SiteScenario {
   indicatorIds: RuleId[]
 }
 
-export type PopupScenarioId = 'safe' | 'medium' | 'high' | 'disabled' | 'scanning'
+export type PopupScenarioId = 'idle' | 'safe' | 'medium' | 'high' | 'disabled' | 'scanning'
 
 export interface PopupScenario {
   id: PopupScenarioId
