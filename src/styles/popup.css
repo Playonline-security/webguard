@@ -66,8 +66,8 @@
   }
 
   .popup__icon-button:hover {
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .popup__url {
@@ -134,7 +134,7 @@
   }
 
   .popup__body::-webkit-scrollbar-thumb {
-    background: #c6d0c6;
+    background: #c3cddd;
     border: 2px solid var(--paper);
     border-radius: 99px;
   }
@@ -162,8 +162,8 @@
   }
 
   .popup__footer-link:hover {
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .popup-status {
@@ -288,11 +288,11 @@
   }
 
   .popup .btn--primary {
-    background: var(--spruce);
+    background: var(--accent);
   }
 
   .popup .btn--primary:hover:not(:disabled) {
-    background: var(--verdigris-strong);
+    background: var(--accent-strong);
   }
 
   .popup-status__actions {
@@ -304,7 +304,7 @@
 
   .popup-status__actions .btn--secondary {
     background: rgba(255, 255, 255, 0.62);
-    border-color: rgba(13, 26, 23, 0.16);
+    border-color: rgba(6, 19, 38, 0.16);
   }
 
   .popup-status__actions .btn--ghost {
@@ -363,7 +363,7 @@
   }
 
   .popup-findings__toggle:hover {
-    background: var(--sage);
+    background: var(--tint);
   }
 
   .popup-findings__count {
@@ -451,13 +451,13 @@
     align-items: center;
     gap: 5px;
     margin-top: 7px;
-    color: var(--verdigris);
+    color: var(--accent);
     font-size: 9.5px;
     font-weight: 540;
   }
 
   .popup-summary__refresh:hover {
-    color: var(--spruce);
+    color: var(--brand);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -476,8 +476,8 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
     margin-bottom: -2px;
   }
 
@@ -497,7 +497,7 @@
     width: 55%;
     height: 100%;
     border-radius: 99px;
-    background: var(--verdigris);
+    background: var(--accent);
     animation: scan-progress 2.8s ease-in-out infinite;
   }
 
@@ -528,8 +528,8 @@
     height: 17px;
     flex: 0 0 auto;
     border-radius: 50%;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
   }
 
   .scan-steps__marker > span {

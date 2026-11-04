@@ -81,8 +81,8 @@
   }
 
   ::selection {
-    background: var(--sage-strong);
-    color: var(--ink);
+    background: var(--tint-strong);
+    color: var(--brand);
   }
 
   :focus-visible {
@@ -90,7 +90,6 @@
     outline-offset: 2px;
   }
 
-  .security-page :focus-visible,
   .sidebar :focus-visible,
   .protection-band :focus-visible {
     outline-color: var(--focus-inverse);
@@ -156,7 +155,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #c6d0c6;
+    background: #c3cddd;
     border: 3px solid var(--chalk);
     border-radius: 99px;
   }

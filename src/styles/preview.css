@@ -33,9 +33,9 @@
     min-height: 25px;
     padding: 0 8px;
     border-radius: 999px;
-    border: 1px dashed var(--verdigris);
-    color: var(--verdigris-strong);
-    background: var(--sage);
+    border: 1px dashed var(--accent);
+    color: var(--accent-strong);
+    background: var(--tint);
     font-size: 10px;
     font-weight: 560;
     white-space: nowrap;
@@ -46,9 +46,9 @@
     align-items: flex-start;
     gap: 11px;
     padding: 14px 17px;
-    border: 1px dashed #b3c8b6;
+    border: 1px dashed #b9cdf0;
     border-radius: 10px;
-    background: #e8efe5;
+    background: var(--tint);
     color: var(--ink-soft);
   }
 
@@ -60,7 +60,7 @@
     flex: 0 0 auto;
     border-radius: 7px;
     background: var(--paper);
-    color: var(--verdigris);
+    color: var(--accent);
   }
 
   .prototype-banner strong {
@@ -113,10 +113,10 @@
   }
 
   .preview-tab.is-active {
-    border-color: var(--verdigris);
-    background: var(--sage);
-    color: var(--verdigris-strong);
-    box-shadow: inset 0 -2px 0 var(--verdigris);
+    border-color: var(--accent);
+    background: var(--tint);
+    color: var(--accent-strong);
+    box-shadow: inset 0 -2px 0 var(--accent);
   }
 
   .preview-tab__copy {
@@ -197,8 +197,8 @@
   }
 
   .scenario-option.is-active {
-    border-color: var(--verdigris);
-    background: var(--sage);
+    border-color: var(--accent);
+    background: var(--tint);
   }
 
   .scenario-option__icon {
@@ -258,7 +258,7 @@
   }
 
   .scenario-option.is-active .scenario-option__chevron {
-    color: var(--verdigris);
+    color: var(--accent);
   }
 
   .scenario-panel__note {
@@ -390,8 +390,8 @@
     align-items: flex-start;
     justify-content: center;
     padding: 27px 20px;
-    background-color: #e5eae1;
-    background-image: radial-gradient(#c2cec3 0.65px, transparent 0.65px);
+    background-color: #e8eef8;
+    background-image: radial-gradient(#c9d6e8 0.65px, transparent 0.65px);
     background-size: 15px 15px;
   }
 
@@ -410,7 +410,7 @@
 
   .screen-stage {
     padding: 14px;
-    background: #e5eae1;
+    background: #e8eef8;
     overflow: hidden;
   }
 
@@ -584,9 +584,9 @@
   }
 
   .component-link:hover {
-    border-color: var(--verdigris);
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    border-color: var(--accent);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .component-link > svg:first-child {

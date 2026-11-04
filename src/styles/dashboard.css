@@ -7,13 +7,14 @@
     padding: 22px 24px 18px;
     border-radius: var(--radius-lg);
     color: var(--paper);
-    background: var(--spruce);
+    background: var(--brand);
+    border: 1px solid rgba(143, 182, 255, 0.14);
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(13, 43, 37, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 34px rgba(6, 19, 38, 0.18);
   }
 
   .protection-band.is-paused {
-    background: #2b3d37;
+    background: #2a3448;
   }
 
   .protection-band__main {
@@ -37,9 +38,10 @@
     height: 48px;
     flex: 0 0 auto;
     border-radius: 50%;
-    color: var(--spruce);
-    background: var(--sage-strong);
-    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: var(--brand);
+    background: var(--tint-strong);
+    border: 1px solid rgba(143, 182, 255, 0.46);
+    box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.12);
   }
 
   .is-paused .protection-band__icon {
@@ -48,7 +50,7 @@
   }
 
   .protection-band__kicker {
-    color: rgba(243, 245, 241, 0.54);
+    color: rgba(244, 247, 255, 0.54);
     font-size: 11px;
     font-weight: 500;
   }
@@ -64,7 +66,7 @@
   .protection-band__copy {
     margin-top: 5px;
     max-width: 49ch;
-    color: rgba(243, 245, 241, 0.62);
+    color: rgba(244, 247, 255, 0.62);
     font-size: 12.5px;
     line-height: 1.5;
   }
@@ -84,7 +86,7 @@
 
   .protection-band__metrics span {
     font-size: 10.5px;
-    color: rgba(243, 245, 241, 0.48);
+    color: rgba(244, 247, 255, 0.48);
     white-space: nowrap;
   }
 
@@ -104,7 +106,7 @@
 
   .watchline {
     padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(143, 182, 255, 0.16);
   }
 
   .watchline__head {
@@ -112,7 +114,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    color: rgba(243, 245, 241, 0.52);
+    color: rgba(244, 247, 255, 0.52);
     font-size: 10.5px;
   }
 
@@ -167,7 +169,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 3px;
-    color: rgba(243, 245, 241, 0.33);
+    color: rgba(244, 247, 255, 0.5);
     font-size: 9.5px;
   }
 
@@ -189,6 +191,7 @@
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     overflow: hidden;
+    box-shadow: var(--shadow-xs);
   }
 
   .stat {
@@ -214,8 +217,8 @@
     width: 31px;
     height: 31px;
     border-radius: 8px;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
   }
 
   .stat__delta {
@@ -266,6 +269,7 @@
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     padding: 20px 21px;
+    box-shadow: var(--shadow-xs);
   }
 
   .panel-heading {
@@ -361,12 +365,12 @@
   }
 
   .chart__area {
-    fill: var(--verdigris);
+    fill: var(--accent);
     opacity: 0.09;
   }
 
   .chart__line {
-    stroke: var(--verdigris);
+    stroke: var(--accent);
     stroke-width: 2.2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -374,13 +378,13 @@
 
   .chart__point {
     fill: var(--paper);
-    stroke: var(--verdigris);
+    stroke: var(--accent);
     stroke-width: 2;
     transition: r 120ms ease;
   }
 
   .chart__point.is-active {
-    fill: var(--verdigris);
+    fill: var(--accent);
     stroke: var(--paper);
     stroke-width: 2.4;
   }
@@ -391,7 +395,7 @@
   }
 
   .chart__guide {
-    stroke: var(--verdigris);
+    stroke: var(--accent);
     stroke-width: 1;
     stroke-dasharray: 3 4;
     opacity: 0.55;
@@ -420,7 +424,7 @@
   }
 
   .chart__tooltip span {
-    color: rgba(243, 245, 241, 0.68);
+    color: rgba(244, 247, 255, 0.68);
     font-size: 9.5px;
   }
 
@@ -451,7 +455,7 @@
     width: 14px;
     height: 2px;
     border-radius: 2px;
-    background: var(--verdigris);
+    background: var(--accent);
   }
 
   .chart__foot-note {
@@ -584,7 +588,7 @@
   }
 
   .recent-events__row:hover {
-    background: var(--sage);
+    background: var(--paper-muted);
     padding-left: 7px;
     padding-right: 7px;
   }
@@ -623,7 +627,7 @@
   }
 
   .recent-events__row:hover .recent-events__arrow {
-    color: var(--verdigris);
+    color: var(--accent);
     transform: translateX(2px);
   }
 
@@ -642,7 +646,7 @@
   }
 
   .top-indicators__row .mono-label {
-    color: var(--verdigris-strong);
+    color: var(--accent-strong);
     font-size: 9.5px;
   }
 
@@ -673,7 +677,7 @@
     display: block;
     height: 100%;
     border-radius: 99px;
-    background: var(--verdigris);
+    background: var(--accent);
     opacity: 0.72;
   }
 

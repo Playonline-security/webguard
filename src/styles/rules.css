@@ -6,6 +6,7 @@
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     overflow: hidden;
+    box-shadow: var(--shadow-xs);
   }
 
   .metric-strip > div {
@@ -84,8 +85,8 @@
     width: 30px;
     height: 30px;
     border-radius: 7px;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
     flex: 0 0 auto;
   }
 
@@ -137,16 +138,16 @@
   }
 
   .rule-row.is-highlighted {
-    background: #eef4e9;
-    box-shadow: inset 3px 0 0 var(--verdigris);
+    background: var(--tint);
+    box-shadow: inset 3px 0 0 var(--accent);
   }
 
   .rule-row__id {
     font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 500;
-    color: var(--verdigris-strong);
-    background: var(--sage);
+    color: var(--accent-strong);
+    background: var(--tint);
     border-radius: 4px;
     padding: 3px 5px;
     width: max-content;

@@ -32,6 +32,7 @@
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     padding: 20px 21px;
+    box-shadow: var(--shadow-xs);
   }
 
   .settings-card__head {
@@ -51,8 +52,8 @@
     height: 36px;
     flex: 0 0 auto;
     border-radius: 8px;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
   }
 
   .settings-card__copy {
@@ -146,9 +147,9 @@
     border-radius: 99px;
   }
 
-  .sensitivity__scale .is-low { background: var(--sage-strong); }
-  .sensitivity__scale .is-balanced { background: var(--verdigris); }
-  .sensitivity__scale .is-high { background: var(--spruce); }
+  .sensitivity__scale .is-low { background: var(--tint-strong); }
+  .sensitivity__scale .is-balanced { background: var(--accent); }
+  .sensitivity__scale .is-high { background: var(--accent-strong); }
 
   .sensitivity__labels {
     display: flex;
@@ -183,8 +184,8 @@
     height: 31px;
     flex: 0 0 auto;
     border-radius: 7px;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
   }
 
   .setting-row__copy {
@@ -290,7 +291,7 @@
   }
 
   .domain-form input:focus {
-    outline: 2px solid var(--verdigris);
+    outline: 2px solid var(--accent);
     outline-offset: 1px;
     border-color: transparent;
   }
@@ -435,8 +436,8 @@
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
     margin-bottom: 10px;
   }
 

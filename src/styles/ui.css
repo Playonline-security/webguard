@@ -43,13 +43,13 @@
   }
 
   .btn--primary {
-    background: var(--spruce);
+    background: var(--accent);
     color: var(--paper);
-    box-shadow: 0 1px 1px rgba(13, 26, 23, 0.08);
+    box-shadow: 0 1px 1px rgba(6, 19, 38, 0.08);
   }
 
   .btn--primary:hover:not(:disabled) {
-    background: var(--verdigris-strong);
+    background: var(--accent-strong);
   }
 
   .btn--secondary {
@@ -59,9 +59,9 @@
   }
 
   .btn--secondary:hover:not(:disabled) {
-    background: var(--sage);
-    border-color: var(--sage-strong);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    border-color: var(--tint-strong);
+    color: var(--accent-strong);
   }
 
   .btn--ghost {
@@ -70,8 +70,8 @@
   }
 
   .btn--ghost:hover:not(:disabled) {
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .btn--quiet {
@@ -82,8 +82,8 @@
   }
 
   .btn--quiet:hover:not(:disabled) {
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .btn--danger {
@@ -108,7 +108,7 @@
 
   .btn--quiet-inverse {
     background: transparent;
-    color: rgba(243, 245, 241, 0.72);
+    color: rgba(244, 247, 255, 0.72);
   }
 
   .btn--quiet-inverse:hover:not(:disabled) {
@@ -128,8 +128,8 @@
   }
 
   .icon-btn:hover {
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .icon-btn--outline {
@@ -218,12 +218,12 @@
     border-radius: 99px;
     font-family: var(--font-mono);
     font-size: 10.5px;
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    background: var(--tint);
+    color: var(--accent-strong);
   }
 
   .count-badge--brand {
-    background: var(--spruce);
+    background: var(--brand);
     color: var(--paper);
   }
 
@@ -254,12 +254,12 @@
     height: 16px;
     border-radius: 50%;
     background: var(--paper);
-    box-shadow: 0 1px 3px rgba(13, 26, 23, 0.25);
+    box-shadow: 0 1px 3px rgba(6, 19, 38, 0.25);
     transition: transform 170ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .switch.is-checked {
-    background: var(--verdigris);
+    background: var(--accent);
   }
 
   .switch.is-checked .switch__thumb {
@@ -321,8 +321,8 @@
   }
 
   .search-field:focus-within {
-    border-color: var(--verdigris);
-    box-shadow: 0 0 0 3px rgba(44, 106, 92, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
   }
 
   .search-field input {
@@ -353,8 +353,8 @@
   }
 
   .search-field__clear:hover {
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
   }
 
   .select-field {
@@ -398,9 +398,9 @@
   }
 
   .filter-chip.is-active {
-    border-color: var(--verdigris);
-    background: var(--sage);
-    color: var(--verdigris-strong);
+    border-color: var(--accent);
+    background: var(--tint);
+    color: var(--accent-strong);
     font-weight: 570;
   }
 
@@ -408,7 +408,7 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    color: var(--verdigris);
+    color: var(--accent);
     font-size: 12.5px;
     font-weight: 560;
     width: max-content;
@@ -416,7 +416,7 @@
   }
 
   .text-link:hover {
-    color: var(--spruce);
+    color: var(--accent-strong);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -430,7 +430,7 @@
   }
 
   .text-button:hover {
-    color: var(--verdigris);
+    color: var(--accent);
   }
 
   .protocol-tag {
@@ -555,8 +555,8 @@
     font-family: var(--font-mono);
     font-size: 9.5px;
     font-weight: 500;
-    color: var(--verdigris-strong);
-    background: var(--sage);
+    color: var(--accent-strong);
+    background: var(--tint);
     border-radius: 4px;
     padding: 2px 4px;
   }
@@ -623,8 +623,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--sage);
-    color: var(--verdigris);
+    background: var(--tint);
+    color: var(--accent);
     margin-bottom: 3px;
   }
 
@@ -661,7 +661,7 @@
 
   .modal::backdrop,
   .drawer::backdrop {
-    background: rgba(13, 26, 23, 0.48);
+    background: rgba(6, 19, 38, 0.48);
     backdrop-filter: blur(2px);
   }
 
@@ -713,7 +713,7 @@
 
   .modal__close:hover,
   .drawer__close:hover {
-    background: var(--sage);
+    background: var(--tint);
     color: var(--ink);
   }
 
@@ -760,7 +760,7 @@
     width: 16px;
     height: 16px;
     margin: 1px 0 0;
-    accent-color: var(--verdigris);
+    accent-color: var(--accent);
   }
 
   .drawer {
@@ -779,7 +779,7 @@
     height: 100%;
     background: var(--paper);
     border-left: 1px solid var(--line);
-    box-shadow: -18px 0 54px rgba(13, 26, 23, 0.16);
+    box-shadow: -18px 0 54px rgba(6, 19, 38, 0.16);
   }
 
   .drawer__header {
@@ -829,7 +829,7 @@
     padding: 11px 12px;
     background: var(--paper);
     border: 1px solid var(--line);
-    border-left: 3px solid var(--verdigris);
+    border-left: 3px solid var(--accent);
     border-radius: 9px;
     box-shadow: var(--shadow-md);
     pointer-events: auto;
@@ -839,12 +839,12 @@
   .toast--success { border-left-color: var(--safe); }
   .toast--warning { border-left-color: var(--medium); }
   .toast--error { border-left-color: var(--high); }
-  .toast--info { border-left-color: var(--verdigris); }
+  .toast--info { border-left-color: var(--accent); }
 
   .toast > svg {
     margin-top: 1px;
     flex: 0 0 auto;
-    color: var(--verdigris);
+    color: var(--accent);
   }
 
   .toast--success > svg { color: var(--safe); }
@@ -880,7 +880,7 @@
   }
 
   .toast__close:hover {
-    background: var(--sage);
+    background: var(--tint);
     color: var(--ink);
   }
 
