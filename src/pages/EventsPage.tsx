@@ -16,6 +16,7 @@ import { Button } from '../components/ui/Button'
 import { EmptyState } from '../components/ui/EmptyState'
 import { Drawer } from '../components/ui/Drawer'
 import { formatNumber } from '../lib/format'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const PAGE_SIZE = 8
 
@@ -24,6 +25,7 @@ function csvCell(value: string): string {
 }
 
 export function EventsPage() {
+  useDocumentTitle('WebGuard · Historial')
   const { eventId } = useParams()
   const navigate = useNavigate()
   const { pushToast } = useToast()

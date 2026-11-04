@@ -1,4 +1,5 @@
 import { ShieldCheck, ShieldX } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { Logo } from '../brand/Logo'
 import { cx } from '../../lib/cx'
 
@@ -23,6 +24,9 @@ export function SecurityFooter() {
     <footer className="security-footer">
       <span>WebGuard · Prototipo visual</span>
       <span>Datos simulados. Ninguna página real fue analizada ni bloqueada.</span>
+      <Link to="/" className="security-footer__link">
+        Volver al centro de escenarios
+      </Link>
     </footer>
   )
 }

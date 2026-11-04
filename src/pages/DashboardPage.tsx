@@ -5,6 +5,7 @@ import { useToast } from '../context/useToast'
 import { statsByPeriod } from '../data/stats'
 import type { Period } from '../types'
 import { formatDelta, formatNumber } from '../lib/format'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { PageHeader } from '../components/layout/PageHeader'
 import { SegmentedControl } from '../components/ui/SegmentedControl'
 import { Modal } from '../components/ui/Modal'
@@ -23,6 +24,7 @@ const periodOptions: Array<{ value: Period; label: string }> = [
 ]
 
 export function DashboardPage() {
+  useDocumentTitle('WebGuard · Resumen de protección')
   const { settings, setProtectionEnabled } = useAppState()
   const { pushToast } = useToast()
   const [period, setPeriod] = useState<Period>('7d')
@@ -37,7 +39,7 @@ export function DashboardPage() {
     setProtectionEnabled(true)
     pushToast({
       title: 'Protección activada',
-      description: 'WebGuard volverá a analizar la navegación de este equipo.',
+      description: 'WebGuard volverá a analizar la navegación en este navegador.',
       tone: 'success',
     })
   }
@@ -87,7 +89,7 @@ export function DashboardPage() {
     <div className="page-stack">
       <PageHeader
         title="Resumen de protección"
-        description="Actividad de WebGuard en el espacio de trabajo de Atelier Norte."
+        description="Actividad de WebGuard en este navegador."
         actions={
           <div className="page-header__control">
             <span className="page-header__control-label">Periodo</span>

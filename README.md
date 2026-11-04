@@ -1,6 +1,6 @@
 # WebGuard · Prototipo de interfaz
 
-Prototipo frontend interactivo de WebGuard, una extensión conceptual de protección de navegación. Incluye el panel de control, el historial de eventos, las reglas de detección, la configuración y un centro de escenarios para revisar el popup de la extensión y las pantallas de advertencia y bloqueo.
+Prototipo frontend interactivo de WebGuard, una extensión conceptual de protección de navegación. El centro de escenarios es la página de inicio y desde el popup se accede al resumen, el historial de eventos, las reglas de detección y la configuración. También permite revisar las pantallas de advertencia y bloqueo a tamaño completo.
 
 > **Todo es simulado.** No hay backend, base de datos, motor de detección, manifest de Chrome, content scripts ni bloqueo real. Los dominios, eventos, puntuaciones y decisiones son datos locales de demostración.
 
@@ -8,7 +8,7 @@ Prototipo frontend interactivo de WebGuard, una extensión conceptual de protecc
 
 - Node.js 20 o superior
 - npm 10 o superior
-- Un navegador moderno (Chrome recomendado)
+- Google Chrome o Firefox actualizado, con una ventana de al menos 1100 px de ancho
 
 ## Puesta en marcha
 
@@ -31,32 +31,39 @@ npm run lint      # análisis estático con oxlint
 
 ### Interfaz principal
 
-- `/` — Resumen de protección: estado, métricas por periodo, actividad, distribución de riesgo, eventos recientes e indicadores frecuentes.
+- `/` — Centro de escenarios: página de inicio del prototipo, con acceso al popup, la advertencia, el bloqueo y la galería de componentes.
+- `/dashboard` — Resumen de protección: estado, métricas por periodo, actividad, distribución de riesgo, eventos recientes e indicadores frecuentes.
 - `/events` — Historial de 30 eventos simulados con búsqueda, filtros por riesgo y resultado, orden, paginación, detalle lateral y exportación CSV.
 - `/events/:eventId` — Historial con el detalle del evento abierto en un panel lateral.
 - `/rules` — Las nueve reglas de detección con sus pesos, búsqueda, filtros, activación individual y guía de umbrales.
 - `/settings` — Protección, sensibilidad, alertas, preferencias generales, listas de dominios y restablecimiento de datos.
-- `/preview` — Centro de escenarios, marcado como herramienta exclusiva del prototipo.
+
+Las secciones administrativas se abren desde las opciones del popup: **Panel**, **Historial**, **Configuración** y **Reglas**. El centro de escenarios no forma parte de la interfaz final.
 
 ### Pantallas de seguridad
 
 - `/demo/warning` — Advertencia de riesgo medio, con confirmación para continuar.
 - `/demo/blocked` — Bloqueo de riesgo alto, sin opción de continuar; incluye copia del informe o presentación manual si el portapapeles está restringido.
-- `/preview?tab=warning` y `/preview?tab=blocked` — Las mismas pantallas dentro del centro de escenarios a escala.
+
+Ambas se abren en una pestaña nueva desde el centro de escenarios para revisar el viewport completo sin recortes ni vistas escaladas.
 
 ### Centro de escenarios
 
 El centro permite revisar sin instalar nada:
 
 - Los cinco estados del popup: seguro, riesgo medio, riesgo alto, protección desactivada y análisis en curso.
-- La advertencia y el bloqueo con resumen del dominio, puntuación, indicadores y acciones.
+- La advertencia y el bloqueo a tamaño completo, con acceso a su resumen, dominio, puntuación e indicadores.
 - Una galería de componentes: estados de riesgo, medidores, indicadores, botones, etiquetas y controles interactivos.
+
+El centro mantiene un único recorrido guiado por el popup, la advertencia y el bloqueo. La biblioteca de componentes sigue disponible como vista secundaria desde el enlace “Explorar biblioteca de componentes” o mediante `?tab=components`.
 
 Los parámetros `tab` y `state` se sincronizan con la URL, por lo que se puede enlazar una vista concreta, por ejemplo:
 
 ```text
-/preview?tab=popup&state=medium
+/?tab=popup&state=medium
 ```
+
+La ruta anterior `/preview` redirige al centro de escenarios. Los enlaces antiguos con `layout=tabs` se ignoran y muestran el recorrido guiado.
 
 ## Puntuación simulada
 
@@ -98,7 +105,8 @@ src/
   components/     Componentes de layout, dashboard, eventos, settings, popup, seguridad y preview
   context/        Estado global de la demo y notificaciones
   data/           Eventos, reglas, escenarios, estadísticas y dominios simulados
-  lib/            Utilidades de riesgo, formato, almacenamiento y clases
+  hooks/          Hooks compartidos, como el título del documento
+  lib/            Utilidades de riesgo, formato, almacenamiento, portapapeles y clases
   pages/          Rutas de la aplicación
   styles/         Tokens y estilos por área
   types/          Tipos compartidos
@@ -111,4 +119,5 @@ src/
 - No se analiza tráfico, URL, certificados, formularios ni reputación real.
 - No se envían notificaciones al sistema operativo.
 - La exportación CSV y las listas de dominios son locales al navegador.
+- El prototipo es exclusivamente de escritorio; por debajo de 1100 px se muestra un aviso y no se ofrece una experiencia móvil.
 - El centro de escenarios forma parte de las herramientas de revisión y no de la interfaz final.

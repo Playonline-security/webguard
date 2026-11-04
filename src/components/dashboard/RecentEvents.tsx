@@ -12,7 +12,7 @@ export function RecentEvents() {
       <div className="panel-heading">
         <div>
           <h3 className="panel-title">Eventos recientes</h3>
-          <p className="panel-subtitle">Últimos análisis registrados en este equipo.</p>
+          <p className="panel-subtitle">Últimos análisis registrados en este navegador.</p>
         </div>
         <Link to="/events" className="text-link">
           Ver historial completo <ArrowRight size={14} aria-hidden="true" />

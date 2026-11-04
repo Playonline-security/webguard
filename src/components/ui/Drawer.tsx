@@ -16,7 +16,12 @@ export function Drawer({ open, onClose, title, children, footer }: DrawerProps) 
   useEffect(() => {
     const dialog = dialogRef.current
     if (!dialog) return
-    if (open && !dialog.open) dialog.showModal()
+    if (open && !dialog.open) {
+      dialog.showModal()
+      window.requestAnimationFrame(() => {
+        dialog.querySelector<HTMLElement>('.drawer__close')?.focus()
+      })
+    }
     if (!open && dialog.open) dialog.close()
   }, [open])
 

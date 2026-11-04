@@ -24,6 +24,7 @@ import { Modal } from '../components/ui/Modal'
 import { SettingRow } from '../components/settings/SettingRow'
 import { DomainListEditor } from '../components/settings/DomainListEditor'
 import { cx } from '../lib/cx'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const sensitivityCopy: Record<AppSettings['sensitivity'], string> = {
   low: 'Solo se advierte ante señales críticas. Menos interrupciones, menor cobertura.',
@@ -39,6 +40,7 @@ const sensitivityLabel: Record<AppSettings['sensitivity'], string> = {
 }
 
 export function SettingsPage() {
+  useDocumentTitle('WebGuard · Configuración')
   const {
     settings,
     updateSettings,
@@ -75,7 +77,7 @@ export function SettingsPage() {
     <div className="page-stack">
       <PageHeader
         title="Configuración"
-        description="Ajusta cómo se comporta WebGuard en este espacio de trabajo de demostración."
+        description="Ajusta cómo se comporta WebGuard en este navegador."
         actions={
           <span className="saved-badge">
             <CheckCircle2 size={15} aria-hidden="true" />
@@ -216,7 +218,7 @@ export function SettingsPage() {
               />
               <SettingRow
                 title="Guardar estadísticas locales"
-                description="Conserva los contadores y el historial solo en este dispositivo."
+                description="Conserva los contadores y el historial solo en este navegador."
                 checked={settings.localStats}
                 onChange={(checked) => updateSettings({ localStats: checked })}
                 label="Guardar estadísticas locales"
@@ -306,7 +308,7 @@ export function SettingsPage() {
               Comprueba cómo se ven el popup, la advertencia y el bloqueo con la configuración
               actual.
             </p>
-            <ButtonLink to="/preview" variant="secondary" size="sm" fullWidth>
+            <ButtonLink to="/" variant="secondary" size="sm" fullWidth>
               Abrir centro de escenarios
             </ButtonLink>
           </section>
@@ -349,7 +351,7 @@ export function SettingsPage() {
       </Modal>
 
       <div className="page-note">
-        <Link to="/preview" className="text-link">
+        <Link to="/" className="text-link">
           Los controles de esta configuración no aplican bloqueos ni análisis reales.
         </Link>
       </div>

@@ -27,7 +27,7 @@ export function WarningScreen() {
       description: 'No se cargó el sitio con riesgo medio.',
       tone: 'success',
     })
-    navigate('/preview?tab=popup&state=safe')
+    navigate('/?tab=popup&state=safe')
   }
 
   const continueAnyway = () => {
@@ -39,14 +39,14 @@ export function WarningScreen() {
         'En la extensión real, el sitio se abriría bajo tu responsabilidad con protección reducida.',
       tone: 'warning',
     })
-    navigate('/preview?tab=popup&state=medium')
+    navigate('/?tab=popup&state=medium')
   }
 
   return (
     <div className="security-page security-page--warning">
       <SecurityHeader variant="warning" />
 
-      <main className="security-main">
+      <main className="security-main" id="main-content">
         <div className="security-banner security-banner--warning">
           <span className="security-banner__icon">
             <TriangleAlert size={18} aria-hidden="true" />

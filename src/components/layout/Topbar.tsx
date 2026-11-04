@@ -1,22 +1,16 @@
-import { FlaskConical, Menu, ShieldCheck, ShieldOff } from 'lucide-react'
+import { FlaskConical, ShieldCheck, ShieldOff } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAppState } from '../../context/useAppState'
-import { IconButton } from '../ui/Button'
 import { cx } from '../../lib/cx'
 
 const pageNames: Record<string, string> = {
-  '/': 'Resumen',
+  '/dashboard': 'Resumen',
   '/events': 'Historial',
   '/rules': 'Reglas de detección',
   '/settings': 'Configuración',
-  '/preview': 'Centro de escenarios',
 }
 
-interface TopbarProps {
-  onOpenMenu: () => void
-}
-
-export function Topbar({ onOpenMenu }: TopbarProps) {
+export function Topbar() {
   const { settings } = useAppState()
   const location = useLocation()
   const pathRoot =
@@ -28,18 +22,14 @@ export function Topbar({ onOpenMenu }: TopbarProps) {
   return (
     <header className="topbar">
       <div className="topbar__left">
-        <IconButton
-          label="Abrir navegación"
-          className="topbar__menu"
-          onClick={onOpenMenu}
-          variant="outline"
-        >
-          <Menu size={18} aria-hidden="true" />
-        </IconButton>
         <nav className="breadcrumb" aria-label="Miga de pan">
           <Link to="/" className="breadcrumb__home">
             WebGuard
           </Link>
+          <span className="breadcrumb__sep" aria-hidden="true">
+            /
+          </span>
+          <span className="breadcrumb__context">Opciones</span>
           <span className="breadcrumb__sep" aria-hidden="true">
             /
           </span>
@@ -48,7 +38,7 @@ export function Topbar({ onOpenMenu }: TopbarProps) {
       </div>
 
       <div className="topbar__right">
-        <Link to="/preview" className="topbar__demo">
+        <Link to="/" className="topbar__demo">
           <FlaskConical size={15} aria-hidden="true" />
           Escenarios
         </Link>

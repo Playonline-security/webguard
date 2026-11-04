@@ -557,18 +557,4 @@
     to { opacity: 1; }
   }
 
-  @media (max-width: 520px) {
-    .popup-stage .popup {
-      transform: scale(0.82);
-      transform-origin: top center;
-      margin-bottom: -108px;
-    }
-  }
-
-  @media (max-width: 430px) {
-    .popup-stage .popup {
-      transform: scale(0.78);
-      margin-bottom: -132px;
-    }
-  }
 }

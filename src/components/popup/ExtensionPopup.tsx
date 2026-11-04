@@ -360,7 +360,7 @@ export function ExtensionPopup({ scenarioId, onChangeScenario }: ExtensionPopupP
           <Clock3 size={16} aria-hidden="true" />
           Historial
         </Link>
-        <Link to="/" className="popup__footer-link">
+        <Link to="/dashboard" className="popup__footer-link">
           <LayoutDashboard size={16} aria-hidden="true" />
           Panel
         </Link>

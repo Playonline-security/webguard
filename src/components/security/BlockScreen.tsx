@@ -12,16 +12,13 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import { blockScenario } from '../../data/scenarios'
 import { useToast } from '../../context/useToast'
+import { copyText } from '../../lib/clipboard'
 import { riskLabels } from '../../lib/risk'
 import { SecurityFooter, SecurityHeader } from './SecurityChrome'
 import { Button, ButtonLink } from '../ui/Button'
 import { IndicatorList } from '../ui/IndicatorList'
 import { Modal } from '../ui/Modal'
 import { RiskBadge } from '../ui/Badge'
-
-interface ClipboardLike {
-  writeText: (value: string) => Promise<void>
-}
 
 export function BlockScreen() {
   const navigate = useNavigate()
@@ -35,7 +32,7 @@ export function BlockScreen() {
       description: 'El sitio bloqueado no se cargó.',
       tone: 'success',
     })
-    navigate('/preview?tab=popup&state=safe')
+    navigate('/?tab=popup&state=safe')
   }
 
   const copyReport = async () => {
@@ -49,49 +46,23 @@ export function BlockScreen() {
       'Este informe pertenece a un prototipo visual. No hubo un bloqueo real.',
     ].join('\n')
 
-    try {
-      let copied = false
-      const field = document.createElement('textarea')
-      field.value = report
-      field.setAttribute('readonly', '')
-      field.style.position = 'fixed'
-      field.style.opacity = '0'
-      document.body.appendChild(field)
-      field.focus()
-      field.select()
-      try {
-        copied = document.execCommand('copy')
-      } catch {
-        copied = false
-      }
-      document.body.removeChild(field)
-
-      const clipboard = (navigator as Navigator & { clipboard?: ClipboardLike }).clipboard
-      if (!copied && clipboard) {
-        try {
-          copied = await Promise.race([
-            clipboard.writeText(report).then(() => true),
-            new Promise<boolean>((resolve) => window.setTimeout(() => resolve(false), 800)),
-          ])
-        } catch {
-          copied = false
-        }
-      }
-      if (!copied) throw new Error('Copia no disponible')
+    const copied = await copyText(report)
+    if (copied) {
       pushToast({
         title: 'Informe copiado',
         description: 'El informe simulado se copió al portapapeles.',
         tone: 'success',
       })
-    } catch {
-      setManualReport(report)
-      setReportOpen(true)
-      pushToast({
-        title: 'Copia manual disponible',
-        description: 'El portapapeles está restringido. El informe se muestra para copiarlo a mano.',
-        tone: 'warning',
-      })
+      return
     }
+
+    setManualReport(report)
+    setReportOpen(true)
+    pushToast({
+      title: 'Copia manual disponible',
+      description: 'El portapapeles está restringido. El informe se muestra para copiarlo a mano.',
+      tone: 'warning',
+    })
   }
 
   return (
@@ -103,7 +74,7 @@ export function BlockScreen() {
 
       <SecurityHeader variant="blocked" />
 
-      <main className="security-main security-main--blocked">
+      <main className="security-main security-main--blocked" id="main-content">
         <section className="security-hero security-hero--blocked">
           <div className="security-hero__main">
             <span className="security-block-icon">

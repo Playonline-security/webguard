@@ -22,9 +22,6 @@ export function EventTable({ events }: { events: SecurityEvent[] }) {
               <span className="event-row__site">
                 <span className="event-row__domain">{event.domain}</span>
                 <span className="event-row__url">{event.url}</span>
-                <span className="event-row__mobile-meta">
-                  {event.id} · {formatShortDate(event.timestamp)}
-                </span>
               </span>
               <span className="event-row__date">
                 <strong>{formatShortDate(event.timestamp)}</strong>

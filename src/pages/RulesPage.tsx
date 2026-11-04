@@ -19,6 +19,7 @@ import { Switch } from '../components/ui/Switch'
 import { EmptyState } from '../components/ui/EmptyState'
 import { Button } from '../components/ui/Button'
 import { cx } from '../lib/cx'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const categoryIcons: Record<RuleCategory, typeof Link2> = {
   url: Link2,
@@ -31,6 +32,7 @@ const categoryOrder: RuleCategory[] = ['url', 'connection', 'content']
 type RuleFilter = 'all' | 'enabled' | 'disabled'
 
 export function RulesPage() {
+  useDocumentTitle('WebGuard · Reglas de detección')
   const { rules, toggleRule } = useAppState()
   const { pushToast } = useToast()
   const [searchParams] = useSearchParams()
@@ -86,7 +88,7 @@ export function RulesPage() {
         title="Reglas de detección"
         description="Indicadores ilustrativos que explican cómo WebGuard construiría su puntuación de riesgo."
         actions={
-          <Link to="/preview" className="text-link">
+          <Link to="/" className="text-link">
             <ShieldAlert size={16} aria-hidden="true" />
             Ver pantallas de seguridad
           </Link>

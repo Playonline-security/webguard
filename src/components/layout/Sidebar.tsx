@@ -6,6 +6,7 @@ import {
   Settings2,
   ShieldCheck,
   ShieldOff,
+  UserRound,
 } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 import { useAppState } from '../../context/useAppState'
@@ -16,13 +17,8 @@ import { Switch } from '../ui/Switch'
 import { mockEvents } from '../../data/events'
 import { cx } from '../../lib/cx'
 
-interface SidebarProps {
-  open: boolean
-  onNavigate: () => void
-}
-
 const mainNav = [
-  { to: '/', label: 'Resumen', icon: LayoutDashboard, end: true },
+  { to: '/dashboard', label: 'Resumen', icon: LayoutDashboard, end: true },
   { to: '/events', label: 'Historial', icon: History, end: false, badge: mockEvents.length },
 ]
 
@@ -31,7 +27,7 @@ const controlNav = [
   { to: '/settings', label: 'Configuración', icon: Settings2 },
 ]
 
-export function Sidebar({ open, onNavigate }: SidebarProps) {
+export function Sidebar() {
   const { settings, setProtectionEnabled } = useAppState()
   const { pushToast } = useToast()
 
@@ -47,28 +43,34 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
   }
 
   return (
-    <aside className={cx('sidebar', open && 'is-open')} aria-label="Navegación principal">
+    <aside className="sidebar" aria-label="Navegación de opciones">
       <div className="sidebar__top">
-        <Link to="/" className="sidebar__brand" onClick={onNavigate} aria-label="WebGuard, inicio">
+        <Link to="/" className="sidebar__brand" aria-label="WebGuard, centro de escenarios">
           <Logo tone="light" size="md" />
         </Link>
         <div className="workspace">
-          <span className="workspace__mark">AN</span>
+          <span className="workspace__mark" aria-hidden="true">
+            <UserRound size={17} />
+          </span>
           <span className="workspace__copy">
-            <span className="workspace__name">Atelier Norte</span>
-            <span className="workspace__plan">Espacio de trabajo</span>
+            <span className="workspace__name">Usuario</span>
+            <span className="workspace__plan">Cuenta de usuario</span>
           </span>
         </div>
       </div>
 
       <nav className="sidebar__nav">
-        <p className="sidebar__label">Panel</p>
+        <Link to="/" className="sidebar__scenarios">
+          <FlaskConical size={17} aria-hidden="true" />
+          <span>Volver a escenarios</span>
+        </Link>
+
+        <p className="sidebar__label">Opciones</p>
         {mainNav.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
-            onClick={onNavigate}
             className={({ isActive }) => cx('nav-item', isActive && 'is-active')}
           >
             <item.icon size={18} strokeWidth={1.9} aria-hidden="true" />
@@ -82,24 +84,12 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
           <NavLink
             key={item.to}
             to={item.to}
-            onClick={onNavigate}
             className={({ isActive }) => cx('nav-item', isActive && 'is-active')}
           >
             <item.icon size={18} strokeWidth={1.9} aria-hidden="true" />
             <span>{item.label}</span>
           </NavLink>
         ))}
-
-        <p className="sidebar__label sidebar__label--prototype">Prototipo</p>
-        <NavLink
-          to="/preview"
-          onClick={onNavigate}
-          className={({ isActive }) => cx('nav-item nav-item--demo', isActive && 'is-active')}
-        >
-          <FlaskConical size={18} strokeWidth={1.9} aria-hidden="true" />
-          <span>Centro de escenarios</span>
-          <span className="nav-item__demo">Demo</span>
-        </NavLink>
       </nav>
 
       <div className="sidebar__foot">
@@ -110,7 +100,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
           </div>
           <p className="sidebar-status__copy">
             {settings.protectionEnabled
-              ? 'Analizando la navegación de este equipo.'
+              ? 'Analizando la navegación en este navegador.'
               : 'No se analizarán nuevas páginas.'}
           </p>
           <div className="sidebar-status__actions">
@@ -129,7 +119,6 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
           variant="quiet"
           size="sm"
           className="sidebar__settings-link"
-          onClick={onNavigate}
         >
           <Settings2 size={14} aria-hidden="true" />
           Ajustes de protección

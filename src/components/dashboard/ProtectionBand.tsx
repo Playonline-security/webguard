@@ -30,7 +30,7 @@ export function ProtectionBand({ stats, enabled, onToggle }: ProtectionBandProps
             </h2>
             <p className="protection-band__copy">
               {enabled
-                ? 'WebGuard analiza la navegación de este equipo y detiene los sitios de alto riesgo.'
+                ? 'WebGuard analiza la navegación en este navegador y detiene los sitios de alto riesgo.'
                 : 'No se analizarán páginas nuevas hasta que reactives la protección.'}
             </p>
           </div>

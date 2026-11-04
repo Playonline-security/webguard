@@ -30,7 +30,16 @@ export function Modal({
   useEffect(() => {
     const dialog = dialogRef.current
     if (!dialog) return
-    if (open && !dialog.open) dialog.showModal()
+    if (open && !dialog.open) {
+      dialog.showModal()
+      window.requestAnimationFrame(() => {
+        const target =
+          dialog.querySelector<HTMLElement>(
+            '.modal__body input, .modal__body button, .modal__body textarea, .modal__body select, .modal__body a',
+          ) ?? dialog.querySelector<HTMLElement>('.modal__close')
+        target?.focus()
+      })
+    }
     if (!open && dialog.open) dialog.close()
   }, [open])
 
