@@ -27,6 +27,20 @@ npm run preview   # sirve la compilación de dist/
 npm run lint      # análisis estático con oxlint
 ```
 
+## Publicación
+
+El prototipo se publica en GitHub Pages:
+
+```text
+https://playonline-security.github.io/webguard/
+```
+
+Cada push a `main` ejecuta el workflow `.github/workflows/deploy-pages.yml`, que instala dependencias, ejecuta el lint, compila el proyecto y publica `dist/`. También se puede relanzar manualmente desde **Actions → Deploy GitHub Pages → Run workflow**.
+
+En GitHub, la fuente de publicación debe estar configurada en **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+La compilación de producción usa la base `/webguard/`, mientras que el servidor de desarrollo sigue funcionando en la raíz. El workflow genera `404.html` a partir de `index.html` para que las rutas internas funcionen al recargar directamente en GitHub Pages.
+
 ## Recorrido del prototipo
 
 ### Interfaz principal

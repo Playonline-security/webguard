@@ -19,9 +19,11 @@ import App from './App'
 import { AppStateProvider } from './context/AppStateContext'
 import { ToastProvider } from './context/ToastContext'
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppStateProvider>
         <ToastProvider>
           <App />
